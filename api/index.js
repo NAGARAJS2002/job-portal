@@ -13,7 +13,7 @@ mongoose.connect(process.env.CONNECTION_STRING).then(()=>{
 });
 
 app.listen(PORT,() => {
-    console.log(`Server is running on ${PORT} 3000`);
+    console.log(`Server is running on ${PORT}`);
     
 })
 
