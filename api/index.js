@@ -2,11 +2,19 @@ import express from "express";
 const app = express();
 import env from "dotenv"
 import mongoose from "mongoose";
+import cors from "cors";
 import userRouter from "./routes/userRoute.js"
 env.config();
 const PORT = 3000;
 
 app.use(express.json())
+
+const corsOptions = {
+    origin:'http://localhost:5173',
+    credentials:true
+}
+
+app.use(cors(corsOptions));
 
 mongoose.connect(process.env.CONNECTION_STRING).then(()=>{
     console.log('database connected');
