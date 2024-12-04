@@ -2,40 +2,57 @@ import bcryptjs from "bcryptjs"
 import User from "../models/userModel.js";
 import { errorHandler } from "../utils/error.js";
 import jwt from "jsonwebtoken"
-export const signup = async (req,res,next) => {
+import getUrl from "../utils/dataUrl.js";
+import cloudinary from "../utils/cloud.js";
+
+
+export const signup = async (req, res, next) => {
   try {
-    const {username,email,password,role} = req.body;
-    if (!username||!email||!password||!role) {
-        return res.status(400).json({ error: " (username, email, password, role) are required" });
+    const { username, email, password, role } = req.body;
+
+
+    if (!username || !email || !password || !role) {
+      return res.status(400).json({ error: "(username, email, password, role) are required" });
     }
 
+  
+    const file = req.file;
+    if (!file) {
+      return res.status(400).json({ error: "Profile picture is required" });
+    }
 
-    
+    const fileUri = getUrl(file);
+
+
+    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+
+ 
     const user = await User.findOne({ email });
     if (user) {
-        return res.status(400).json(
-         'User already exist with this email.'
-        )
-    } 
- 
-        const hashedPassword = bcryptjs.hashSync(password,10)
+      return res.status(400).json({ error: "User already exists with this email." });
+    }
 
-        await User.create({
-          username:username,
-          email:email,
-          password:hashedPassword   ,
-          role:role,
-        });
-    
+    const hashedPassword = bcryptjs.hashSync(password, 10);
 
-    return res.status(201).
-    json("Account created successfully.");
 
+    await User.create({
+      username,
+      email,
+      password: hashedPassword,
+      role,
+      profile: {
+        profilePhoto: cloudResponse.secure_url,
+      },
+    });
+
+    return res.status(201).json({
+      message: "Account created successfully.",
+      success: true,
+    });
   } catch (error) {
-    next(error)
+    next(error);
   }
-
-}
+};
 
   export const signin = async (req,res,next) => {
     try {
