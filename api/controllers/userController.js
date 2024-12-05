@@ -73,7 +73,11 @@ export const signup = async (req, res, next) => {
         const token = jwt.sign({id: vaildUser._id},process.env.JWT_SECRET);
 
             res.cookie('access_token',token,{http:true}).
-            status(200).json(vaildUser);
+            status(200).json({
+              message: `Welcome back ${vaildUser.username}`,
+              vaildUser,
+              success:true
+            });
 
     } catch (error) {
         next(error)

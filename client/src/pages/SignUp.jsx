@@ -53,7 +53,7 @@ const handleSubmit = async (e) => {
     } catch (error) {
         console.log(error);
         setLoading(false)
-        toast.error(error.response.data.message);
+        toast.error(error.res.data.message);
     } 
 }
   return (
@@ -66,7 +66,6 @@ const handleSubmit = async (e) => {
                             type="text"
                             value={formData.username}
                             name="username"
-                          
                             placeholder="username"
                             onChange={changeEventHandler}
                         />
@@ -131,7 +130,7 @@ const handleSubmit = async (e) => {
                     <span className='text-sm'>Already have an account? <Link to="/sign-in" className='text-blue-600'>signin</Link></span>
                 </form>
               
-            </div>
+    </div>
       
   )
 }
