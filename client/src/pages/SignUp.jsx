@@ -30,7 +30,7 @@ const navigate = useNavigate();
 }
 const handleSubmit = async (e) => {
     e.preventDefault();
-    const inputData = new FormData();    //formdata object
+    const inputData = new FormData();    
     inputData.append("username", formData.username);
     inputData.append("email", formData.email);
     inputData.append("password", formData.password);

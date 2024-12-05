@@ -61,21 +61,21 @@ export const signup = async (req, res, next) => {
             return next(errorHandler(400),'something is missing')
         }
 
-        const vaildUser = await User.findOne({email});
-             if (!vaildUser) {
+        const validUser = await User.findOne({email});
+             if (!validUser) {
                 return next(errorHandler(400),'user is found')
              }
-        const vaildPassword = bcryptjs.compareSync(password,vaildUser.password);
-             if (!vaildPassword) {
+        const validPassword = bcryptjs.compareSync(password,validUser.password);
+             if (!validPassword) {
             return next(errorHandler(400,'wrong credential'))
             }
 
-        const token = jwt.sign({id: vaildUser._id},process.env.JWT_SECRET);
+        const token = jwt.sign({id: validUser._id},process.env.JWT_SECRET);
 
             res.cookie('access_token',token,{http:true}).
             status(200).json({
-              message: `Welcome back ${vaildUser.username}`,
-              vaildUser,
+              message: `Welcome back ${validUser.username}`,
+              validUser,
               success:true
             });
 
