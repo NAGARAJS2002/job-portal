@@ -2,8 +2,8 @@ import bcryptjs from "bcryptjs"
 import User from "../models/userModel.js";
 import { errorHandler } from "../utils/error.js";
 import jwt from "jsonwebtoken"
-import getUrl from "../utils/dataUrl.js";
 import cloudinary from "../utils/cloud.js";
+import getUri from "../utils/dataUrl.js";
 
 
 export const signup = async (req, res, next) => {
@@ -21,7 +21,7 @@ export const signup = async (req, res, next) => {
       return res.status(400).json({ error: "Profile picture is required" });
     }
 
-    const fileUri = getUrl(file);
+    const fileUri = getUri(file);
 
 
     const cloudResponse = await cloudinary.uploader.upload(fileUri.content);

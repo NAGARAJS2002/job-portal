@@ -3,12 +3,14 @@ const app = express();
 import env from "dotenv"
 import mongoose from "mongoose";
 import cors from "cors";
+import cookieParser from "cookie-parser"
 import userRouter from "./routes/userRoute.js"
+import jobRouter from "./routes/jobRoute.js"
 env.config();
 const PORT = 3000;
 
 app.use(express.json())
-
+app.use(cookieParser())
 const corsOptions = {
     origin:'http://localhost:5173',
     credentials:true
@@ -26,7 +28,8 @@ app.listen(PORT,() => {
 })
 
 
-app.use('/api/user',userRouter)
+app.use('/api/user',userRouter);
+app.use('/api/job',jobRouter);
 
 app.use((err,req,res,next)=>{
     const statusCode = err.statusCode || 500;

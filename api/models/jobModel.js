@@ -21,11 +21,13 @@ const jobSchema =  new mongoose.Schema({
         type: String
     },
     requirements: {
-        type: String
+        type: String,
+        required: true
     },
     
     createdUser: {
-       type: mongoose.Schema.Types.ObjectId, ref: 'user'
+        type: Object,
+        required: true,
     }
 },{timestamps: true})
 
