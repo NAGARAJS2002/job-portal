@@ -6,7 +6,7 @@ import { errorHandler } from "../utils/error.js";
 
 export const createJob = async (req,res,next)  => {
     try {
-        const {title,description,location,companyName  , requirements} = req.body;
+        const {title,description,location,companyName, requirements} = req.body;
         const userId = req.user;
        
         if (!title||!description||!location||!companyName ||!requirements) {

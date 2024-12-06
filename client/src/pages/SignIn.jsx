@@ -34,7 +34,7 @@ const handleSubmit = async (e) => {
         if (res.data.success) {
             dispatch(setLoading(false))
             dispatch(setUser(res.data.validUser))
-            navigate('/')
+            navigate('/create-job')
             toast.success(res.data.message)
         }
          dispatch(setLoading(false))

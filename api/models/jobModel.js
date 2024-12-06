@@ -24,7 +24,7 @@ const jobSchema =  new mongoose.Schema({
         type: String,
         required: true
     },
-    
+
     createdUser: {
         type: Object,
         required: true,
