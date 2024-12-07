@@ -23,12 +23,12 @@ export const createJob = async (req,res,next)  => {
     
         const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
    
-       const job =  await jobs.create({
+        const job=  await jobs.create({
            title,
            description,
            location,
            companyName,
-           requirements,
+           requirements:requirements.split(","),
            logo: cloudResponse.secure_url,
            createdUser: userId
    

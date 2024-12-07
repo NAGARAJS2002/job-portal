@@ -19,7 +19,7 @@ export default function App() {
     <Route path='/profile' element={<Profile/>} />
     <Route path='/jobs' element={<Jobs/>} />
     <Route element={<AdminProtectRoute/>}>
-    <Route path='create-job'  element={<PostJob/>}/>
+    <Route path='/create-job'  element={<PostJob/>}/>
     </Route>
    </Routes>
    </BrowserRouter>

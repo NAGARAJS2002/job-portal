@@ -20,10 +20,10 @@ const jobSchema =  new mongoose.Schema({
     logo:{
         type: String
     },
-    requirements: {
+    requirements: [{
         type: String,
         required: true
-    },
+    }],
 
     createdUser: {
         type: Object,

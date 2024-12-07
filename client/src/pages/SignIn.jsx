@@ -31,7 +31,7 @@ const handleSubmit = async (e) => {
             headers:{"Content-Type": "application/json"},
             withCredentials:true
         });
-        if (res.data.success) {
+        if (res.data.success === true) {
             dispatch(setLoading(false))
             dispatch(setUser(res.data.validUser))
             navigate('/create-job')
