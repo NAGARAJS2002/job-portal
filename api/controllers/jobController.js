@@ -43,3 +43,33 @@ export const createJob = async (req,res,next)  => {
         next(error)
     }
 }
+
+
+export const getAllJobs = async (req, res, next) => {
+  const {searchTerm , city} = req.query;
+  const limit = parseInt(req.query.limit) || 9;
+const query ={}
+
+if (searchTerm) {
+    query.$or =  [
+        {title: {$regex: searchTerm , $options: "i"}},
+        {companyName:{$regex: searchTerm , $options: "i"}},
+        {description:{$regex: searchTerm , $options: "i"}},
+    ]
+}
+  if (city) {
+      query.location = city;
+  }
+try {
+    const job = await jobs.find(query).sort({createAt : -1}).limit(limit);
+
+    res.status(200).json({
+        success: true,
+        job
+    })
+    
+} catch (error) {
+    next(error)
+}
+
+};
